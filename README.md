@@ -8,5 +8,5 @@ created using HTML, CSS(TailwindCSS), Javascript
 
 # Team Members:
 
-Marl Kristoffer Rico
-Phuoc Nguyen
+- Marl Kristoffer Rico
+- Phuoc Nguyen
