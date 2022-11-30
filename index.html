@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="./src/output.css" rel="stylesheet" />
+    <script src="tictactoe.js"><</script>
   </head>
   <body>
     <div
@@ -19,10 +20,10 @@
               X
             </p>
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
-              0
+              O
             </p>
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
-              0
+              O
             </p>
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
               TAC
@@ -34,7 +35,7 @@
               X
             </p>
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
-              0
+              O
             </p>
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
               TOE
@@ -52,12 +53,12 @@
           <p
             class="text-m font-bold outline rounded outline-amber-900 w-64 m-1"
           >
-            First player = X
+            First player: X
           </p>
           <p
             class="text-m font-bold outline rounded outline-amber-900 w-64 m-1"
           >
-            Second Player = 0
+            Second Player: O
           </p>
         </div>
 
@@ -143,7 +144,7 @@
         <!-- Button to reset game -->
         <button
           id="but"
-          onclick="myfunc_2()"
+          onclick="resetBoard()"
           class="bg-white hover:bg-amber-900 text-amber-900 font-semibold hover:text-white py-2 px-4 border border-amber-900 hover:border-transparent rounded"
         >
           RESET
@@ -151,7 +152,7 @@
 
         <br /><br />
         <!-- Space to show player turn -->
-        <p id="print"></p>
+        <p id="DisplayMessage"></p>
       </div>
     </div>
   </body>
