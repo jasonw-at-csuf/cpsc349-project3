@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="./src/output.css" rel="stylesheet" />
-    <script src="tictactoe.js"><</script>
+    <script defer src="tictactoe.js"></script>
   </head>
   <body>
     <div
@@ -11,7 +11,7 @@
       <div
         class="bg-amber-100 outline outline-amber-900 outline-8 text-center h-fit w-5/6 sm:w-2/3"
       >
-        <div class="flex justify-center">
+        <div class="flex justify-center content-center">
           <div class="w-64 grid grid-cols-3 gap-2 grid-rows-3 m-4">
             <p class="outline outline-amber-900 rounded font-bold text-3xl">
               TIC
@@ -53,93 +53,19 @@
           <p
             class="text-m font-bold outline rounded outline-amber-900 w-64 m-1"
           >
-            First player: X
-          </p>
-          <p
-            class="text-m font-bold outline rounded outline-amber-900 w-64 m-1"
-          >
-            Second Player: O
+            Current Player: <span id="currentPlayer">X</span>
           </p>
         </div>
 
-        <br /><br />
         <!-- 3*3 grid of Boxes -->
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          stype="text"
-          id="b1"
-          onclick="myfunc_3(); myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b2"
-          onclick="myfunc_4(); myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b3"
-          onclick="myfunc_5(); myfunc();"
-          readonly
-        />
-        <br /><br />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b4"
-          onclick="myfunc_6(); myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b5"
-          onclick="myfunc_7(); myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b6"
-          onclick="myfunc_8(); myfunc();"
-          readonly
-        />
-        <br /><br />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b7"
-          onclick="myfunc_9(); myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b8"
-          onclick="myfunc_10();myfunc();"
-          readonly
-        />
-
-        <input
-          class="m-2 w-28 h-28 outline rounded btn-square outline-amber-900 hover:outline-amber-900 hover:outline-8"
-          type="text"
-          id="b9"
-          onclick="myfunc_11();myfunc();"
-          readonly
-        />
+        <div class="flex justify-center">
+          <div
+            id="game-grid"
+            class="grid grid-cols-3 w-96 content-center"
+          ></div>
+        </div>
 
         <!-- Grid end here  -->
-        <br /><br />
         <br />
         <!-- Button to reset game -->
         <button
