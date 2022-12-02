@@ -1,20 +1,23 @@
 // = = winningMessage() = = = = = = = = = = = = = = = = = = = = =
 //  In : - winner
-//          A Character either 'X' or 'Y'
-//  Out: Displays the winning Message for X or Y
+//          A Character either 'X' or 'O'
+//  Out: Displays the winning Message for X or O
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 function winningMessage(winner) {
-  alert(winner);
-  //   if (winner == "X") {
-  //     document.getElementById("DisplayMessage").innerHTML("X is the Winner!");
-  //     console.log("Displayed Winning Message for: X");
-  //   } else if (winner == "X") {
-  //     document.getElementById("DisplayMessage").innerHTML("Y is the Winner!");
-  //     console.log("Displayed Winning Message for: Y");
-  //   } else {
-  //     document.getElementById("DisplayMessage").innerHTML("An Error has occured");
-  //     console.log(winner);
-  //   }
+  // alert(winner);
+    if (winner == "X") {
+      // document.getElementById("DisplayMessage").innerHTML("X is the Winner!");
+      alert("X is the Winner!")
+      console.log("Displayed Winning Message for: X");
+    } else if (winner == "O") {
+      // document.getElementById("DisplayMessage").innerHTML("Y is the Winner!");
+      alert("O is the Winner!")
+      console.log("Displayed Winning Message for: O");
+    } else {
+      // document.getElementById("DisplayMessage").innerHTML("An Error has occured");
+      alert("Tie!")
+      // console.log(winner);
+    }
 }
 
 // = = resetBoard() = = = = = = = = = = = = = = = = = = = = = =
@@ -43,6 +46,7 @@ function checkWin(gameBoard) {
       gameBoard[i][0].innerHTML === gameBoard[i][1].innerHTML &&
       gameBoard[i][1].innerHTML === gameBoard[i][2].innerHTML
     ) {
+      console.log(gameBoard[i][0])
       return gameBoard[i][0];
     }
   }
@@ -62,7 +66,7 @@ function checkWin(gameBoard) {
   if (
     gameBoard[0][0].innerHTML &&
     gameBoard[0][0].innerHTML === gameBoard[1][1].innerHTML &&
-    gameBoard[1][1].innerHTML === gameBoard[2][2]
+    gameBoard[1][1].innerHTML === gameBoard[2][2].innerHTML
   ) {
     return gameBoard[0][0];
   }
@@ -116,7 +120,7 @@ function generateBoard() {
       e.classList.add(
         "flex",
         "justify-center",
-        "content-center",
+        "items-center",
         "m-2",
         "bg-white",
         "text-3xl",
@@ -134,22 +138,33 @@ function generateBoard() {
         addTile(gameBoard, i, j);
       };
       gameBoard[i][j] = e;
-      console.log(e);
+      // console.log(e);
       document.querySelector("#game-grid").appendChild(e);
     }
   }
 }
 
+var count = 0
 function addTile(gameBoard, i, j) {
+  count++
   let win = checkWin(gameBoard);
   if (win == null && gameBoard[i][j].innerHTML == "") {
     gameBoard[i][j].innerHTML = currentTurn();
     win = checkWin(gameBoard);
+    console.log(gameBoard)
     if (win != null) {
-      winningMessage(win);
-      console.log(gameBoard);
-      console.log(win);
+      if (gameBoard[i][j].innerHTML == 'X') {
+        winningMessage('X')
+      }
+      else if (gameBoard[i][j].innerHTML == 'O') {
+        winningMessage('O')
+      }
     } else toggleTurn();
+
+    // All moves are expended and no win condition was found
+    if (count === 9) {
+      winningMessage('T')
+    }
   }
 }
 
