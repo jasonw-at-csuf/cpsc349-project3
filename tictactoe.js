@@ -5,19 +5,15 @@
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 function winningMessage(winner) {
   // alert(winner);
-    if (winner == "X") {
-      // document.getElementById("DisplayMessage").innerHTML("X is the Winner!");
-      alert("X is the Winner!")
-      console.log("Displayed Winning Message for: X");
-    } else if (winner == "O") {
-      // document.getElementById("DisplayMessage").innerHTML("Y is the Winner!");
-      alert("O is the Winner!")
-      console.log("Displayed Winning Message for: O");
-    } else {
-      // document.getElementById("DisplayMessage").innerHTML("An Error has occured");
-      alert("Tie!")
-      // console.log(winner);
-    }
+  if (winner == "X") {
+    
+    alert("X is the Winner!");
+  } else if (winner == "O") {
+    alert("O is the Winner!");
+  } else {
+    alert("Tie!");
+  }
+  window.localStorage.clear();
 }
 
 // = = resetBoard() = = = = = = = = = = = = = = = = = = = = = =
@@ -25,10 +21,15 @@ function winningMessage(winner) {
 //  Out: Reloads the browsers &
 //       Reset the board state
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-function resetBoard() {
-  // Refresh the page
-  location.reload();
-  console.log("Reloaded\n");
+function resetBoard(gameBoard) {
+  for (let row of gameBoard) {
+    for (let item of row) {
+      item.innerHTML = "";
+    }
+  }
+  document.querySelector("#currentPlayer").innerHTML = "X";
+  window.localStorage.clear();
+  count = 0;
 }
 
 // = = winningMoves() = = = = = = = = = = = = = = = = = = = = = =
@@ -46,7 +47,6 @@ function checkWin(gameBoard) {
       gameBoard[i][0].innerHTML === gameBoard[i][1].innerHTML &&
       gameBoard[i][1].innerHTML === gameBoard[i][2].innerHTML
     ) {
-      console.log(gameBoard[i][0])
       return gameBoard[i][0];
     }
   }
@@ -111,9 +111,32 @@ function toggleTurn() {
   return nextTurn;
 }
 
+function boardToString(gameBoard) {
+  const len = 3;
+  const board = Array.from({ length: len }, () => []);
+  for (let i = 0; i < gameBoard.length; ++i) {
+    for (let j = 0; j < gameBoard[i].length; ++j) {
+      board[i][j] = gameBoard[i][j].innerHTML;
+    }
+  }
+  return JSON.stringify(board);
+}
+
+function loadGameState() {
+  const savedTurn = window.localStorage.getItem("currentTurn");
+  if (savedTurn) document.querySelector("#currentPlayer").innerHTML = savedTurn;
+  return JSON.parse(window.localStorage.getItem("boardState"));
+}
+
+function saveGameState(gameBoard) {
+  window.localStorage.setItem("currentTurn", currentTurn());
+  window.localStorage.setItem("boardState", boardToString(gameBoard));
+}
+
 function generateBoard() {
   const len = 3;
   const gameBoard = Array.from({ length: len }, () => []);
+  const savedBoard = loadGameState();
   for (let i = 0; i < len; ++i) {
     for (let j = 0; j < len; ++j) {
       const e = document.createElement("button");
@@ -133,37 +156,41 @@ function generateBoard() {
         "hover:outline-amber-900",
         "hover:outline-8"
       );
-      e.id = `b${index1d(len, i, j)}`;
       e.onclick = () => {
         addTile(gameBoard, i, j);
       };
+      e.innerHTML = savedBoard ? savedBoard[i][j] ?? "" : "";
       gameBoard[i][j] = e;
-      // console.log(e);
+
       document.querySelector("#game-grid").appendChild(e);
     }
   }
+  document.querySelector("#but").onclick = () => {
+    resetBoard(gameBoard);
+  };
 }
 
-var count = 0
+var count = 0;
 function addTile(gameBoard, i, j) {
-  count++
+  count++;
   let win = checkWin(gameBoard);
   if (win == null && gameBoard[i][j].innerHTML == "") {
     gameBoard[i][j].innerHTML = currentTurn();
     win = checkWin(gameBoard);
-    console.log(gameBoard)
     if (win != null) {
-      if (gameBoard[i][j].innerHTML == 'X') {
-        winningMessage('X')
+      if (gameBoard[i][j].innerHTML == "X") {
+        winningMessage("X");
+      } else if (gameBoard[i][j].innerHTML == "O") {
+        winningMessage("O");
       }
-      else if (gameBoard[i][j].innerHTML == 'O') {
-        winningMessage('O')
-      }
-    } else toggleTurn();
+    } else {
+      toggleTurn();
+      saveGameState(gameBoard);
+    }
 
     // All moves are expended and no win condition was found
     if (count === 9) {
-      winningMessage('T')
+      winningMessage("T");
     }
   }
 }
