@@ -187,7 +187,10 @@ function addTile(gameBoard, i, j) {
       else if (gameBoard[i][j].innerHTML == 'O') {
         winningMessage('O')
       }
-    } else toggleTurn();
+    } else {
+      toggleTurn();
+      saveGameState(gameBoard);
+    }
 
     // All moves are expended and no win condition was found
     //if (count === 9) {
