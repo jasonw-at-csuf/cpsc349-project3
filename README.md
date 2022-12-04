@@ -10,3 +10,4 @@ created using HTML, CSS(TailwindCSS), Javascript
 
 - Marl Kristoffer Rico
 - Phuoc Nguyen
+- Jason Wong
