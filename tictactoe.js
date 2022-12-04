@@ -6,7 +6,6 @@
 function winningMessage(winner) {
   // alert(winner);
   if (winner == "X") {
-    
     alert("X is the Winner!");
   } else if (winner == "O") {
     alert("O is the Winner!");
